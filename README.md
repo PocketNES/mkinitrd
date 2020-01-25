@@ -12,4 +12,4 @@ Para instalar `mkinitrd`, solo muevalo a unos de las carpetas declaradas por el 
 `--tipord`: Especificar el tipo de ramdisk (initrd o initramfs)<br />
 `--archivocp`: Ruta de un archivo conteniendo una lista de rutas absolutas a los otros archivos (ruta absoluta)<br />
 `--init`: Ruta del init script (ruta absoluta)<br />
-`-disp`: Ruta de un tar o un cpio conteniendo nodos de dispositivos (ruta absoluta)<br />
+`--disp`: Ruta de un tar o un cpio conteniendo nodos de dispositivos (ruta absoluta)<br />
