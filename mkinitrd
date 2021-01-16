@@ -2,7 +2,7 @@
 
 ################################
 #                              #
-# mkinitrd, Version 0.01       #
+# mkinitrd, Version 0.10       #
 # Creada en 28-09-2020         #
 # PocketNES Software (gpl)2020 #
 #                              #
@@ -14,7 +14,7 @@ init(){
 	mkdir -p $1/workdir
 	mkdir -p $1/initramfs
 	cp $init $1/workdir
-	cp $busybox $1/workdir
+	cp $busybox $1/workdir/busybox
 }
 
 create_fs(){
@@ -31,19 +31,22 @@ create_fs(){
 }
 
 create_ar(){
-	echo "* Creando "
+	echo "* Creando archivo de initramfs..."
 	cd initramfs
 	find . | cpio -o --format=newc > ../initramfs.cpio
 	cd ..
 	case $compression in
 		"gzip")
 			gzip initramfs.cpio
+			ext=".gz"
 			;;
 		"bzip2")
 			bzip2 initramfs.cpio
+			ext=".bz2"
 			;;
 		"xz")
 			xz --check=crc32 initramfs.cpio
+			ext=".xz"
 			;;
 	esac
 }
@@ -101,8 +104,10 @@ elif [ "$init" = "" ]; then
 	exit 2
 fi
 
+pwd=$(pwd)
 tempdir=$(mktemp -dt pls-XXXXXX)
 
 init $tempdir
 create_fs
 create_ar
+mv initramfs.cpio$ext $pwd
