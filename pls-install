@@ -1,0 +1,18 @@
+#!/bin/sh
+case $1 in
+	"install" | "instalar")
+		shift
+		for pkg in $@; do
+			echo "Instalando paquete $pkg"
+			install $pkg /opt/pkg
+		done
+		;;
+	"remove" | "remover")
+		cd
+		shift
+		for pkg in $@; do
+			echo "Removiendo paquete $pkg"
+			rm -f /opt/pkg/$pkg
+		done
+		;;
+esac
