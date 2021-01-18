@@ -14,7 +14,7 @@ for file in $(ls -la); do
 		gzip -d $file
 	fi
 
-	if [ $(echo $file | grep .tar -c) gt 0 ]; then
+	if [ $(echo $file | grep .tar -c) -gt 0 ]; then
 		tar -xf $file
 	fi
 done
