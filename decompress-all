@@ -1,5 +1,5 @@
 #!/bin/sh
-for file in $(ls -a); do
+for file in $(ls); do
 	echo "Decompressing $file"
 
 	if [ $(echo $file | grep .xz -c) -gt 0 ]; then
@@ -13,8 +13,17 @@ for file in $(ls -a); do
 	if [ $(echo $file | grep .gz -c) -gt 0 ]; then
 		gzip -d $file
 	fi
+done
+
+for file in $(ls); do
+	echo "Unpacking $file"
 
 	if [ $(echo $file | grep .tar -c) -gt 0 ]; then
 		tar -xf $file
+	fi
+
+	if [ $(echo $file | grep .cpio -c) -gt 0 ]; then
+		mkdir $(echo $file | cut -d. -f1)
+		cpio -idmv < ../$file
 	fi
 done
