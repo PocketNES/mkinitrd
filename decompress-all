@@ -1,0 +1,20 @@
+#!/bin/sh
+for file in $(ls -la); do
+	echo "Decompressing $file"
+
+	if [ $(echo $file | grep .xz -c) -gt 0 ]; then
+		xz -d $file
+	fi
+
+	if [ $(echo $file | grep .bz2 -c) -gt 0 ]; then
+		bzip2 -d $file
+	fi
+
+	if [ $(echo $file | grep .gz -c) -gt 0 ]; then
+		gzip -d $file
+	fi
+
+	if [ $(echo $file | grep .tar -c) gt 0 ]; then
+		tar -xf $file
+	fi
+done
