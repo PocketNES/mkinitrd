@@ -1,8 +1,11 @@
 #!/bin/sh
 if [ $(id -u) -ne 0 ]; then
-	echo "Error: Usted no es root. Necesita ser root para poder usar $0"
+	echo "Error: Usted no es root. Solo root puede usar $0"
 	exit 1
 fi
+
+echo "Instalador de Paquetes, Version 0.10"
+printf "(c)2020 pocketlinux32, debajo GPLv3\n\n"
 
 case $1 in
 	"install" | "instalar")
