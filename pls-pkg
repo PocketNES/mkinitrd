@@ -1,0 +1,13 @@
+#!/bin/sh
+if [ $(id -u) -ne 0 ]; then
+	echo "Error: Usted no es root. Solo root puede usar $0"
+	exit 1
+fi
+
+echo "Buscador y Descargador de Paquetes, Version 0.01"
+printf "(c)2020 pocketlinux32, debajo GPLv3"
+
+cd /etc/pls-pkg
+./config
+./list
+
