@@ -4,7 +4,8 @@
 #                              #
 # mkinitrd, Version 0.15       #
 # Creada en 28-09-2020         #
-# PocketNES Software (gpl)2020 #
+# (c)2020 pocketlinux32        #
+# Debajo GPLv3                 #
 #                              #
 ################################
 
@@ -52,7 +53,7 @@ create_ar(){
 }
 
 echo "mkinitrd, Version 0.15"
-printf "(c) 2020 PocketNES Software, debajo GPLv3\n\n"
+printf "(c)2020 pocketlinux32, debajo GPLv3\n\n"
 
 if [ $(id -u) -ne 0 ]; then
 	echo "Error: No eres root. Tienes que ser root para utilizar esta herramienta"
