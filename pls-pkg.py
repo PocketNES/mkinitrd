@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 import requests
 
-
+def getPackageDeps(packageName):
+	request.get("https://pocketlinux32.000webhostap.com/package-deps/package/" + packageName)
 
 def getPackage(packageName):
-	request.get("https://pocketlinux32.000webhostap.com/packages/")
+	getPackageDeps(packageName)
 
 if __name__ == "__main__":
 	print("Package manager, Version 0.02")

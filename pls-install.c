@@ -1,19 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
+#include <fcntl.h>
 #include <unistd.h>
 
-void packageHandler(const char* packageNames[], int mode){
+void packageHandler(const char* packageName, int mode){
+	char* absoluteName = realpath(packageName, NULL);
+	if(absoluteName == NULL){
+		printf("Error: realpath() exited with an error.\n");
+		exit(3);
+	}
+
 	if(mode){
 		//TODO: Remove Logic
 	}else{
 		//TODO: Install Logic
+		
 	}
 }
 
 int main(int argc, const char* argv[]){
 	int currentUser = getuid();
 	if(currentUser != 0){
-		printf("You are not root. You need to be root to use %s.", argv[0]);
+		printf("Error: You are not root. You need to be root to use %s.\n", argv[0]);
 		exit(1);
 	}
 	printf("Package Installer, Version 0.02\n(c)2021 pocketlinux32, Under GPLv3\n\n");
@@ -21,19 +30,19 @@ int main(int argc, const char* argv[]){
 		printf("Usage: %s [ i | r ] { package-array }", argv[0]);
 		exit(1);
 	}
-	char* packageList[argc-2];
-	for(int i = 0; i < argc - 2; i++){
-		packageList[i] = argv[i + 2];
-	}
 	switch(argv[1][0]){
 		case 'i':
-			packageHandler(packageList, 0);
+			for(int i = 2; i < argc; i++){
+				packageHandler(argv[i], 0);
+			}
 			break;
 		case 'r':
-			packageHandler(packageList, 1);
+			for(int i = 2; i < argc; i++){
+				packageHandler(argv[i], 1);
+			}
 			break;
 		default:
-			printf("Error: Invalid Option.");
+			printf("Error: Invalid Option.\n");
 			exit(2);
 	}
 }
