@@ -6,6 +6,8 @@
 
 void packageHandler(const char* packageName, int mode){
 	char* absoluteName = realpath(packageName, NULL);
+	char buffer[PATH_MAX] = "/opt/pkgs/";
+	strcat(buffer, packageName);
 	if(absoluteName == NULL){
 		printf("Error: realpath() exited with an error.\n");
 		exit(3);
@@ -15,7 +17,7 @@ void packageHandler(const char* packageName, int mode){
 		//TODO: Remove Logic
 	}else{
 		//TODO: Install Logic
-		
+		rename(absoluteName, buffer);
 	}
 }
 
