@@ -4,7 +4,7 @@ import requests
 
 
 def getPackage(packageName):
-	request.get("https://pocketlinux32.000webhostap.com/")
+	request.get("https://pocketlinux32.000webhostap.com/packages/")
 
 if __name__ == "__main__":
 	print("Package manager, Version 0.02")

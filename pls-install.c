@@ -21,10 +21,16 @@ int main(int argc, const char* argv[]){
 		printf("Usage: %s [ i | r ] { package-array }", argv[0]);
 		exit(1);
 	}
+	char* packageList[argc-2];
+	for(int i = 0; i < argc - 2; i++){
+		packageList[i] = argv[i + 2];
+	}
 	switch(argv[1][0]){
 		case 'i':
+			packageHandler(packageList, 0);
 			break;
 		case 'r':
+			packageHandler(packageList, 1);
 			break;
 		default:
 			printf("Error: Invalid Option.");
