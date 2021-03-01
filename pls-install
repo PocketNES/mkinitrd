@@ -12,7 +12,7 @@ case $1 in
 		shift
 		for pkg in $@; do
 			echo "Instalando paquete $pkg"
-			install $pkg /opt/pkg
+			install $(realpath $pkg) /opt/pkg
 		done
 		;;
 	"remove" | "remover")
@@ -22,5 +22,8 @@ case $1 in
 			echo "Removiendo paquete $pkg"
 			rm -f /opt/pkg/$pkg
 		done
+		;;
+	*)
+		echo "Uso: $0 [ install | remove | instalar | remover ] paquete1 paquete2 ..."
 		;;
 esac

@@ -7,7 +7,15 @@ fi
 echo "Buscador y Descargador de Paquetes, Version 0.01"
 printf "(c)2020 pocketlinux32, debajo GPLv3"
 
-cd /etc/pls-pkg
-./config
-./list
+. /etc/pls-pkg/config
+. /etc/pls-pkg/list
 
+if [ $# -lt 2 ]; then
+	echo "1) Instalar"
+	echo "2) Buscar"
+	echo "3) Remover"
+	echo "4) Salir"
+	read -p "" choice
+else
+	
+fi
