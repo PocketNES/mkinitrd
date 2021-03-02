@@ -1,24 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <string.h>
 #include <limits.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 void packageHandler(const char* packageName, int mode){
 	char* absoluteName = realpath(packageName, NULL);
 	char buffer[PATH_MAX] = "/opt/pkgs/";
-	strcat(buffer, packageName);
+	struct stat* tempStat;
 	if(absoluteName == NULL){
-		printf("Error: realpath() exited with an error.\n");
+		printf("Error: realpath() failed and exited with error code %d.\n", errno);
+		exit(3);
+	}else if(stat(buffer, tempStat)){
+		printf("Error: stat() failed and exited with error code %d.\n", errno);
 		exit(3);
 	}
+	strcat(buffer, packageName);
 
 	if(mode){
 		//TODO: Remove Logic
+		printf("Removing %s...", absoluteName);
 	}else{
 		//TODO: Install Logic
+		printf("Installing %s...", absoluteName);
 		rename(absoluteName, buffer);
 	}
+	free(absoluteName);
 }
 
 int main(int argc, const char* argv[]){
@@ -28,8 +38,8 @@ int main(int argc, const char* argv[]){
 		exit(1);
 	}
 	printf("Package Installer, Version 0.02\n(c)2021 pocketlinux32, Under GPLv3\n\n");
-	if (argc < 2){
-		printf("Usage: %s [ i | r ] { package-array }", argv[0]);
+	if (argc < 3){
+		printf("Usage: %s [ i | r ] { package-array }\n", argv[0]);
 		exit(1);
 	}
 	switch(argv[1][0]){
