@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <sys/mount.h>
 
 void packageHandler(const char* packageName, int mode){
 	char* absoluteName = realpath(packageName, NULL);
@@ -26,7 +27,12 @@ void packageHandler(const char* packageName, int mode){
 	}else{
 		//TODO: Install Logic
 		printf("Installing %s...", absoluteName);
-		rename(absoluteName, buffer);
+		if(rename(absoluteName, buffer) == -1){
+			printf("Error rename() failed and exited with error code %d.\n", errno);
+			exit(4);
+		}else if(mount(buffer, "")){
+			
+		}
 	}
 	free(absoluteName);
 }
