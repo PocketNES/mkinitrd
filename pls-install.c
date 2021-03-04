@@ -8,33 +8,64 @@
 #include <sys/stat.h>
 #include <sys/mount.h>
 
+const char mainMount[PATH_MAX] = "/opt/main";
+
+char* giveInstalledList(char* excludePackage){
+	int amount;
+	while(){
+		
+	}
+}
+
+char* giveInstalledMountFormat(char* excludeName){
+	char* tempList = giveInstalleList(excludeName);
+	static char* returnList = calloc(sizeof(tempList)/sizeof(char), sizeof(char));
+}
+
 void packageHandler(const char* packageName, int mode){
 	char* absoluteName = realpath(packageName, NULL);
-	char buffer[PATH_MAX] = "/opt/pkgs/";
+	char installPath[PATH_MAX] = "/opt/pls-install/pkgs/";
+	char mountPath[PATH_MAX] = "/opt/pls-install/mount/";
 	struct stat* tempStat;
 	if(absoluteName == NULL){
 		printf("Error: realpath() failed and exited with error code %d.\n", errno);
 		exit(3);
-	}else if(stat(buffer, tempStat)){
+	}else if(stat(installPath, tempStat)){
 		printf("Error: stat() failed and exited with error code %d.\n", errno);
 		exit(3);
 	}
-	strcat(buffer, packageName);
+	strcat(installPath, packageName);
+	strcat(mountPath, packageName);
 
 	if(mode){
 		//TODO: Remove Logic
 		printf("Removing %s...", absoluteName);
+		if(stat(installPath, tempStat)){
+			print("Error: stat() failed and exited with error code %d.\n", errno);
+			exit(4);
+		}
+		char* list = giveInstalledList(installPath);
+		if(mount){
+			
+		}
 	}else{
 		//TODO: Install Logic
 		printf("Installing %s...", absoluteName);
-		if(rename(absoluteName, buffer) == -1){
-			printf("Error rename() failed and exited with error code %d.\n", errno);
+		if(!stat(installPath, tempStat)){
+			print("Error: Package is already installed.\n");
 			exit(4);
-		}else if(mount(buffer, "")){
-			
+		}else if(rename(absoluteName, installPath)){
+			printf("Error: rename() failed and exited with error code %d.\n", errno);
+			exit(4);
+		}
+		mkdir(mountPath, 0755);
+		if(mount(installPath, mountPath, "squashfs", MS_MGC_VAL, NULL)){
+			printf("Error: mount() failed and exited with error code %d\n", errno);
+			exit(4);
 		}
 	}
 	free(absoluteName);
+	free(tempStat);
 }
 
 int main(int argc, const char* argv[]){
