@@ -5,13 +5,20 @@
 #include <limits.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <dirent.h>
 #include <sys/stat.h>
 #include <sys/mount.h>
 
 const char mainMount[PATH_MAX] = "/opt/main";
 
 char* giveInstalledList(char* excludePackage){
-	int amount;
+	int amount = 0;
+	DIR* tempDir = opendir("/opt/pls-install/pkgs");
+	if(tempDir == NULL){
+		printf("Error: opendir() failed and exited wih error code %d\n", errno);
+		exit(5);
+	}
+
 	while(){
 		
 	}
