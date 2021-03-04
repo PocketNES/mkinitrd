@@ -17,11 +17,19 @@ puede dar al script:
 decompress-all es un script que decomprime y desempaca archivos. Soporta xz, bzip2,
 gzip, tar y cpio
 
-# pls-install
+# pls-install y pls-pkg
 
-pls-install es un script que va a tomar el lugar de dpkg en PortaLinux por ahora.
-Se esta trabajando en una version escrita en C++. Aqui estan los comandos que se le
-puede dar al script:
+pls-pkg es un administrador de paquetes escrito en Python. Es us buscador de paquetes y
+un front-end para pls-install, el instalador de paquetes (escrito en C). Aqui estan las
+opciones:
 
-instalar	Instala los paquetes dados
-remover		Remueve los paquetes dados
+pls-pkg:
+
+install		Instala un paquete
+search		Busca un paquete
+remove		Remueve un paquete
+
+pls-install:
+
+i		Instala los paquetes dados
+r		Remueve los paquetes dados
