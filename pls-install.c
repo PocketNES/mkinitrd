@@ -13,6 +13,7 @@ const char mainMount[PATH_MAX] = "/opt/main";
 
 char* giveInstalledList(char* excludePackage){
 	int amount = 0;
+	struct dirent* fileStruct;
 	DIR* tempDir = opendir("/opt/pls-install/pkgs");
 	if(tempDir == NULL){
 		printf("Error: opendir() failed and exited wih error code %d\n", errno);
