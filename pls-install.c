@@ -11,8 +11,9 @@
 
 const char mainMount[PATH_MAX] = "/opt/main";
 
-char* giveInstalledList(char* excludePackage){
+char** giveInstalledList(char* excludePackage){
 	int amount = 0;
+	static char** returnList = calloc(amount, sizeof(char*));
 	struct dirent* fileStruct;
 	DIR* tempDir = opendir("/opt/pls-install/pkgs");
 	if(tempDir == NULL){
@@ -20,14 +21,15 @@ char* giveInstalledList(char* excludePackage){
 		exit(5);
 	}
 
-	while(){
-		
+	while(fileStruct = readdir(tempDir)){
+		returnList = realloc(returnList, sizeof(returnList) + sizeof(char*));
 	}
 }
 
-char* giveInstalledMountFormat(char* excludeName){
-	char* tempList = giveInstalleList(excludeName);
-	static char* returnList = calloc(sizeof(tempList)/sizeof(char), sizeof(char));
+char** giveInstalledMountFormat(char* excludeName){
+	char** tempList = giveInstalleList(excludeName);
+	static char** returnList = calloc(sizeof(tempList)/sizeof(char*), sizeof(char*));
+	free(tempList);
 }
 
 void packageHandler(const char* packageName, int mode){
@@ -52,8 +54,8 @@ void packageHandler(const char* packageName, int mode){
 			print("Error: stat() failed and exited with error code %d.\n", errno);
 			exit(4);
 		}
-		char* list = giveInstalledList(installPath);
-		if(mount){
+		char** list = giveInstalledMountFormat(installPath);
+		if(mount()){
 			
 		}
 	}else{

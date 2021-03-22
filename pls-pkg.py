@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import requests os sys
+import requests, os, sys
 
 randomSeed = seed()
 
@@ -48,4 +48,4 @@ if __name__ == "__main__":
 	if sys.argv[2] == "install":
 		getPackage(sys.argv[3])
 	elif sys.argv[2] == "remove":
-		getPackage
+		os.system("/usr/bin/pls-install r" + sys.argv[3])
