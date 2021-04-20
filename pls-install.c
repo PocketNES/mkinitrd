@@ -22,6 +22,7 @@ char** giveInstalledList(char* excludePackage){
 	}
 
 	while(fileStruct = readdir(tempDir)){
+		amount++;
 		returnList = realloc(returnList, sizeof(returnList) + sizeof(char*));
 	}
 }
@@ -55,7 +56,7 @@ void packageHandler(const char* packageName, int mode){
 			exit(4);
 		}
 		char** list = giveInstalledMountFormat(installPath);
-		if(mount()){
+		if(mount(NULL, mainMount, NULL, MS_REMOUNT, list)){
 			
 		}
 	}else{
